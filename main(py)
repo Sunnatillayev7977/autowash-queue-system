@@ -1,0 +1,78 @@
+class Customer:
+    def __init__(self, name, car_number, phone):
+        self.name = name
+        self.car_number = car_number
+        self.phone = phone
+
+    def __str__(self):
+        return f"{self.name} | {self.car_number} | {self.phone}"
+
+
+class QueueSystem:
+    def __init__(self):
+        self.queue = []
+
+    def add_customer(self, customer):
+        self.queue.append(customer)
+        print("✅ Customer added to the queue.")
+
+    def show_queue(self):
+        if not self.queue:
+            print("❌ The queue is currently empty.")
+            return
+        print("\n📋 Current Queue:")
+        for i, customer in enumerate(self.queue):
+            print(f"{i + 1}. {customer}")
+
+    def search_by_car_number(self, car_number):
+        for i, customer in enumerate(self.queue):
+            if customer.car_number == car_number:
+                print(f"🔎 Found: {customer} | Position in queue: {i + 1}")
+                return
+        print("❌ No customer found with that car number.")
+
+    def sort_by_name(self):
+        self.queue.sort(key=lambda c: c.name)
+        print("🔤 Queue sorted by customer name.")
+
+
+def main():
+    system = QueueSystem()
+
+    while True:
+        print("\n=== Premium Car Wash Queue System ===")
+        print("1. Add customer to queue")
+        print("2. Show current queue")
+        print("3. Search by car number")
+        print("4. Sort queue by name")
+        print("5. Exit")
+
+        choice = input("Select an option (1-5): ")
+
+        if choice == '1':
+            name = input("Enter name: ")
+            car_number = input("Enter car number: ")
+            phone = input("Enter phone number: ")
+            customer = Customer(name, car_number, phone)
+            system.add_customer(customer)
+
+        elif choice == '2':
+            system.show_queue()
+
+        elif choice == '3':
+            car_number = input("Enter car number to search: ")
+            system.search_by_car_number(car_number)
+
+        elif choice == '4':
+            system.sort_by_name()
+
+        elif choice == '5':
+            print("✅ Exiting program. Goodbye!")
+            break
+
+        else:
+            print("❌ Invalid choice. Please try again.")
+
+
+if __name__ == "__main__":
+    main()
